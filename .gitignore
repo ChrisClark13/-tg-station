@@ -8,3 +8,6 @@
 *.rsc
 *.lk
 *.int
+*.db
+config/admins.txt
+config/admins.txt

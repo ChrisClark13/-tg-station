@@ -190,7 +190,7 @@
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		else
 			user << "<span class='notice'>This [callme] is out of water!</span>"
-	else if(istype(I, /obj/item/key))
+	else if(istype(I, /obj/item/janikey))
 		user << "Hold [I] in one of your hands while you drive this [callme]."
 	else if(istype(I, /obj/item/weapon/storage/bag/trash))
 		user << "<span class='notice'>You hook the trashbag onto the [callme].</span>"
@@ -211,7 +211,7 @@
 /obj/structure/stool/bed/chair/janicart/relaymove(mob/user, direction)
 	if(user.stat || user.stunned || user.weakened || user.paralysis)
 		unbuckle()
-	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/key))
+	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/janikey))
 		if(!Process_Spacemove(direction))
 			return
 		step(src, direction)
@@ -285,7 +285,7 @@
 	visible_message("<span class='warning'>[Proj] ricochets off the [callme]!</span>")
 
 
-/obj/item/key
+/obj/item/janikey //Rename because new vehicles and this is so unused anyhow.
 	name = "key"
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon = 'icons/obj/vehicles.dmi'
