@@ -4,7 +4,6 @@
 	voice_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian1_m_s"
-	var/list/hud_list = list()
 
 
 
@@ -27,15 +26,22 @@
 	internal_organs += new /obj/item/organ/heart
 	internal_organs += new /obj/item/organ/brain
 
-	for(var/i=0;i<7;i++) // 2 for medHUDs and 5 for secHUDs
-		hud_list += image('icons/mob/hud.dmi', src, "hudunknown")
-
 	// for spawned humans; overwritten by other code
 	create_dna(src)
 	ready_dna(src)
 	randomize_human(src)
 
 	..()
+
+/mob/living/carbon/human/prepare_data_huds()
+	//Update med hud images...
+	..()
+	//...sec hud images...
+	sec_hud_set_ID()
+	sec_hud_set_implants()
+	sec_hud_set_security_status()
+	//...and display them.
+	add_to_all_data_huds()
 
 /mob/living/carbon/human/Destroy()
 	for(var/atom/movable/organelle in organs)
@@ -146,7 +152,7 @@
 			stat("Energy Charge", round(wear_suit:cell:charge/100))
 
 
-/mob/living/carbon/human/ex_act(severity)
+/mob/living/carbon/human/ex_act(severity, specialty)
 	..()
 
 	var/shielded = 0
@@ -400,9 +406,7 @@
 									if(setcriminal != "Cancel")
 										investigate_log("[src.key] has been set from [R.fields["criminal"]] to [setcriminal] by [usr.name] ([usr.key]).", "records")
 										R.fields["criminal"] = setcriminal
-
-										spawn()
-										H.handle_regular_hud_updates()
+										sec_hud_set_security_status()
 								return
 
 						if(href_list["view"])

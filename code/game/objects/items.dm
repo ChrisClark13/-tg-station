@@ -51,22 +51,6 @@
 		m.unEquip(src, 1)
 	return ..()
 
-/obj/item/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if (prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if (prob(5))
-				qdel(src)
-				return
-		else
-	return
-
 /obj/item/blob_act()
 	qdel(src)
 
@@ -219,9 +203,6 @@
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 
 /obj/item/proc/talk_into(mob/M as mob, text)
-	return
-
-/obj/item/proc/moved(mob/user as mob, old_loc as turf)
 	return
 
 /obj/item/proc/dropped(mob/user as mob)
